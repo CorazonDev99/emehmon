@@ -176,11 +176,11 @@ def select_type_person(message):
     chat_id = message.chat.id
     lang = user_langs.get(chat_id, "uz")
     if message.text == select_type_yur[lang]:
-        bot.send_message(chat_id, select_section[lang], reply_markup=generate_yur_fiz(lang))
+        bot.send_message(chat_id, select_section[lang], reply_markup=generate_yur(lang))
         bot.register_next_step_handler(message, select_category_yur)
 
     if message.text == select_type_fiz[lang]:
-        bot.send_message(chat_id, select_section[lang], reply_markup=generate_yur_fiz(lang))
+        bot.send_message(chat_id, select_section[lang], reply_markup=generate_fiz(lang))
         bot.register_next_step_handler(message, select_category_fiz)
 
 
@@ -250,9 +250,6 @@ def select_category_fiz(message):
     elif message.text == quest_ovir[lang]:
         bot.send_message(chat_id, quest_ovir_fiz[lang], reply_markup=generate_quest_fiz_ovir(0, lang))
 
-    elif message.text == quest_tur[lang]:
-        bot.send_message(chat_id, quest_tur_fiz[lang], reply_markup=generate_quest_fiz_tur(0, lang))
-
     if message.text == back[lang]:
         bot.send_message(chat_id, type_message[lang], reply_markup=generate_select_type_person(lang))
         bot.register_next_step_handler(message, select_type_person)
@@ -273,19 +270,8 @@ def handle_pagination(call):
     chat_id = call.message.chat.id
     lang = user_langs.get(chat_id, "uz")
     page_number = int(call.data.split('_')[1])
-    new_keyboard = generate_quest_yur_ovir(page_number, lang)
+    new_keyboard = generate_quest_fiz_ovir(page_number, lang)
     bot.edit_message_reply_markup(call.message.chat.id, call.message.message_id, reply_markup=new_keyboard)
-
-
-#------------------------TURIZM FIZ-----------------------------------------------------
-@bot.callback_query_handler(func=lambda call: call.data.startswith('pageturfiz_'))
-def handle_pagination(call):
-    chat_id = call.message.chat.id
-    lang = user_langs.get(chat_id, "uz")
-    page_number = int(call.data.split('_')[1])
-    new_keyboard = generate_quest_yur_tur(page_number, lang)
-    bot.edit_message_reply_markup(call.message.chat.id, call.message.message_id, reply_markup=new_keyboard)
-
 
 
 #--------------------------FIZ pay category keyboard-----------------------------
@@ -366,8 +352,6 @@ def handle_question(call):
     previous_message_ids[user_id] = sent_message.message_id
 
 #------------------------------------------------------------------------
-
-
 
 
 
@@ -657,7 +641,8 @@ def handle_main_menu(call):
     bot.send_message(call.message.chat.id, quest_emehmon_fiz[lang], reply_markup=generate_quest_fiz_emehmon(0, lang))
 
 
-@bot.callback_query_handler(func=lambda call: call.data.startswith('question_'))
+#--------------------------------Question yur emehmon----------------------------------------
+@bot.callback_query_handler(func=lambda call: call.data.startswith('questionemehmonyur_'))
 def handle_question(call):
     user_id = call.from_user.id
     lang = user_langs.get(user_id, "uz")
@@ -676,7 +661,104 @@ def handle_question(call):
     sent_message = bot.send_message(call.message.chat.id, answer)
 
     previous_message_ids[user_id] = sent_message.message_id
+#---------------------------------------------------------------------------------------------------
 
+
+#--------------------------------Question yur ovir----------------------------------------
+@bot.callback_query_handler(func=lambda call: call.data.startswith('questionoviryur_'))
+def handle_question(call):
+    user_id = call.from_user.id
+    lang = user_langs.get(user_id, "uz")
+    if user_id in previous_message_ids:
+        try:
+            bot.delete_message(call.message.chat.id, previous_message_ids[user_id])
+        except:
+            pass
+
+    _, page_number, question_index = call.data.split('_')
+    page_number = int(page_number)
+    question_index = int(question_index)
+    question = pages_ovir_lang(lang)[page_number][question_index]
+    answer = question[1]
+
+    sent_message = bot.send_message(call.message.chat.id, answer)
+
+    previous_message_ids[user_id] = sent_message.message_id
+
+#-----------------------------------------------------------------------------------------
+
+
+#--------------------------------Question yur tur----------------------------------------
+@bot.callback_query_handler(func=lambda call: call.data.startswith('questionyurtur_'))
+def handle_question(call):
+    user_id = call.from_user.id
+    lang = user_langs.get(user_id, "uz")
+    if user_id in previous_message_ids:
+        try:
+            bot.delete_message(call.message.chat.id, previous_message_ids[user_id])
+        except:
+            pass
+
+    _, page_number, question_index = call.data.split('_')
+    page_number = int(page_number)
+    question_index = int(question_index)
+    question = pages_tur_lang(lang)[page_number][question_index]
+    answer = question[1]
+
+    sent_message = bot.send_message(call.message.chat.id, answer)
+
+    previous_message_ids[user_id] = sent_message.message_id
+
+#-----------------------------------------------------------------------------------------
+
+
+
+#--------------------------------Question fiz emehmon----------------------------------------
+@bot.callback_query_handler(func=lambda call: call.data.startswith('questionfizemehmon_'))
+def handle_question(call):
+    user_id = call.from_user.id
+    lang = user_langs.get(user_id, "uz")
+    if user_id in previous_message_ids:
+        try:
+            bot.delete_message(call.message.chat.id, previous_message_ids[user_id])
+        except:
+            pass
+
+    _, page_number, question_index = call.data.split('_')
+    page_number = int(page_number)
+    question_index = int(question_index)
+    question = pages_emehmon_fiz_lang(lang)[page_number][question_index]
+    answer = question[1]
+
+    sent_message = bot.send_message(call.message.chat.id, answer)
+
+    previous_message_ids[user_id] = sent_message.message_id
+
+#-----------------------------------------------------------------------------------------
+
+
+#--------------------------------Question fiz ovir----------------------------------------
+@bot.callback_query_handler(func=lambda call: call.data.startswith('questionfizovir_'))
+def handle_question(call):
+    user_id = call.from_user.id
+    lang = user_langs.get(user_id, "uz")
+    if user_id in previous_message_ids:
+        try:
+            bot.delete_message(call.message.chat.id, previous_message_ids[user_id])
+        except:
+            pass
+
+    _, page_number, question_index = call.data.split('_')
+    page_number = int(page_number)
+    question_index = int(question_index)
+    question = pages_ovir_fiz_lang(lang)[page_number][question_index]
+    answer = question[1]
+
+    sent_message = bot.send_message(call.message.chat.id, answer)
+
+    previous_message_ids[user_id] = sent_message.message_id
+
+#-----------------------------------------------------------------------------------------
 
 @bot.callback_query_handler(func=lambda call: call.data == 'connect_to_disp_fiz')
 def handle_operator_answer(call):

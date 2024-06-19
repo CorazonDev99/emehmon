@@ -2,8 +2,8 @@ import pandas as pd
 
 file_path = 'data.xlsx'
 
-yur_ovir_ru_data = pd.read_excel(file_path, sheet_name='yur_ovir_ru')
-yur_ovir_uz_data = pd.read_excel(file_path, sheet_name='yur_ovir_uz')
+yur_ovir_ru = pd.read_excel(file_path, sheet_name='yur_ovir_ru')
+yur_ovir_uz = pd.read_excel(file_path, sheet_name='yur_ovir_uz')
 yur_emehmon_ru_data = pd.read_excel(file_path, sheet_name='yur_emehmon_ru')
 yur_emehmon_uz_data = pd.read_excel(file_path, sheet_name='yur_emehmon_uz')
 yur_turizm_ru_data = pd.read_excel(file_path, sheet_name='yur_turizm_ru')
@@ -28,8 +28,8 @@ def remove_slash(value):
         return value.replace('/', '')
     return value
 
-yur_ovir_ru_data = remove_slash(yur_ovir_ru_data)
-yur_ovir_uz_data = remove_slash(yur_ovir_uz_data)
+yur_ovir_ru_data = remove_slash(yur_ovir_ru)
+yur_ovir_uz_data = remove_slash(yur_ovir_uz)
 yur_emehmon_ru_data = remove_slash(yur_emehmon_ru_data)
 yur_emehmon_uz_data = remove_slash(yur_emehmon_uz_data)
 yur_turizm_ru_data = remove_slash(yur_turizm_ru_data)

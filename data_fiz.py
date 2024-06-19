@@ -45,7 +45,6 @@ fiz_ovir_ru = fiz_ovir_ru_data.values.tolist()
 fiz_ovir_uz = fiz_ovir_uz_data.values.tolist()
 fiz_emehmon_ru = fiz_emehmon_ru_data.values.tolist()
 fiz_emehmon_uz = fiz_emehmon_uz_data.values.tolist()
-
 fiz_emehmon_pay_ru = fiz_emehmon_ru_pay_data.values.tolist()
 fiz_emehmon_reg_ru = fiz_emehmon_ru_reg_data.values.tolist()
 fiz_emehmon_log_ru = fiz_emehmon_ru_log_data.values.tolist()

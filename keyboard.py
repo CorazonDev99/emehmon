@@ -23,7 +23,7 @@ def generate_select_type_person(lang):
 
 
 
-def generate_yur_fiz(lang):
+def generate_yur(lang):
     keyboard = types.ReplyKeyboardMarkup(resize_keyboard=True, one_time_keyboard=True)
     btn_qs1 = types.KeyboardButton(quest_emehmon[lang])
     btn_qs2 = types.KeyboardButton(quest_ovir[lang])
@@ -34,6 +34,15 @@ def generate_yur_fiz(lang):
     keyboard.row(btn_back)
     return keyboard
 
+
+def generate_fiz(lang):
+    keyboard = types.ReplyKeyboardMarkup(resize_keyboard=True, one_time_keyboard=True)
+    btn_qs1 = types.KeyboardButton(quest_emehmon[lang])
+    btn_qs2 = types.KeyboardButton(quest_ovir[lang])
+    btn_back = types.KeyboardButton(back[lang])
+    keyboard.row(btn_qs1, btn_qs2)
+    keyboard.row(btn_back)
+    return keyboard
 
 #------------------------------------FIZ pay category keyboard-----------------------
 def divide_into_pages_fiz_pay(data, items_per_page):
@@ -369,7 +378,7 @@ def generate_quest_yur_emehmon(page_number=0, lang=""):
     keyboard.add(types.InlineKeyboardButton(text=yur_total_dogovor[lang], callback_data="yur_total_dogovor"))
     for i, question in enumerate(page):
         quest_uz = question[0]
-        callback_data = f"question_{page_number}_{i}"
+        callback_data = f"questionemehmonyur_{page_number}_{i}"
         keyboard.add(types.InlineKeyboardButton(text=quest_uz, callback_data=callback_data))
 
     nav_buttons = []
@@ -401,7 +410,7 @@ def generate_quest_yur_ovir(page_number=0, lang=""):
 
     for i, question in enumerate(page):
         quest_uz = question[0]
-        callback_data = f"question_{page_number}_{i}"
+        callback_data = f"questionoviryur_{page_number}_{i}"
         keyboard.add(types.InlineKeyboardButton(text=quest_uz, callback_data=callback_data))
 
     nav_buttons = []
@@ -434,7 +443,7 @@ def generate_quest_yur_tur(page_number=0, lang=""):
 
     for i, question in enumerate(page):
         quest_uz = question[0]
-        callback_data = f"question_{page_number}_{i}"
+        callback_data = f"questionyurtur_{page_number}_{i}"
         keyboard.add(types.InlineKeyboardButton(text=quest_uz, callback_data=callback_data))
 
     nav_buttons = []
@@ -461,23 +470,23 @@ def divide_into_pages_fiz(data, items_per_page):
 
 def pages_emehmon_fiz_lang(lang):
     if lang == "uz":
-        return divide_into_pages_yur(fiz_emehmon_uz, 3)
+        return divide_into_pages_fiz(fiz_emehmon_uz, 3)
 
     if lang == "ru":
-        return divide_into_pages_yur(fiz_emehmon_ru, 3)
+        return divide_into_pages_fiz(fiz_emehmon_ru, 3)
 
 
 def generate_quest_fiz_emehmon(page_number=0, lang=""):
     keyboard = types.InlineKeyboardMarkup(row_width=4)
-    page = pages_emehmon_lang(lang)[page_number]
-    total_pages = len(pages_emehmon_lang(lang))
+    page = pages_emehmon_fiz_lang(lang)[page_number]
+    total_pages = len(pages_emehmon_fiz_lang(lang))
     keyboard.add(types.InlineKeyboardButton(text=yur_fiz_pay[lang], callback_data="fiz_pay"))
     keyboard.add(types.InlineKeyboardButton(text=yur_fiz_reg[lang], callback_data="fiz_reg"))
     keyboard.add(types.InlineKeyboardButton(text=fiz_log[lang], callback_data="fiz_log"))
     keyboard.add(types.InlineKeyboardButton(text=fiz_cadastr[lang], callback_data="fiz_cadastr"))
     for i, question in enumerate(page):
         quest_uz = question[0]
-        callback_data = f"question_{page_number}_{i}"
+        callback_data = f"questionfizemehmon_{page_number}_{i}"
         keyboard.add(types.InlineKeyboardButton(text=quest_uz, callback_data=callback_data))
 
     nav_buttons = []
@@ -498,20 +507,20 @@ def generate_quest_fiz_emehmon(page_number=0, lang=""):
 
 def pages_ovir_fiz_lang(lang):
     if lang == "uz":
-        return divide_into_pages_yur(fiz_ovir_uz, 3)
+        return divide_into_pages_fiz(fiz_ovir_uz, 3)
 
     if lang == "ru":
-        return divide_into_pages_yur(fiz_ovir_ru, 3)
+        return divide_into_pages_fiz(fiz_ovir_ru, 3)
 
 
 def generate_quest_fiz_ovir(page_number=0, lang=""):
     keyboard = types.InlineKeyboardMarkup(row_width=4)
-    page = pages_ovir_lang(lang)[page_number]
-    total_pages = len(pages_ovir_lang(lang))
+    page = pages_ovir_fiz_lang(lang)[page_number]
+    total_pages = len(pages_ovir_fiz_lang(lang))
 
     for i, question in enumerate(page):
         quest_uz = question[0]
-        callback_data = f"question_{page_number}_{i}"
+        callback_data = f"questionfizovir_{page_number}_{i}"
         keyboard.add(types.InlineKeyboardButton(text=quest_uz, callback_data=callback_data))
 
     nav_buttons = []
@@ -527,39 +536,6 @@ def generate_quest_fiz_ovir(page_number=0, lang=""):
     keyboard.add(types.InlineKeyboardButton(text=back_to_main[lang], callback_data="main_menu"))
     return keyboard
 
-
-def pages_tur_fiz_lang(lang):
-    if lang == "uz":
-        return divide_into_pages_yur(yur_turizm_uz, 3)
-
-    if lang == "ru":
-        return divide_into_pages_yur(yur_turizm_ru, 3)
-
-
-def generate_quest_fiz_tur(page_number=0, lang=""):
-    keyboard = types.InlineKeyboardMarkup(row_width=4)
-    page = pages_tur_lang(lang)[page_number]
-    total_pages = len(pages_tur_lang(lang))
-
-    for i, question in enumerate(page):
-        quest_uz = question[0]
-        callback_data = f"question_{page_number}_{i}"
-        keyboard.add(types.InlineKeyboardButton(text=quest_uz, callback_data=callback_data))
-
-    nav_buttons = []
-
-    if page_number > 0:
-        nav_buttons.append(types.InlineKeyboardButton(text=prev[lang], callback_data=f"pageturfiz_{page_number - 1}"))
-
-    if page_number < total_pages - 1:
-        nav_buttons.append(types.InlineKeyboardButton(text=next[lang], callback_data=f"pageturfiz_{page_number + 1}"))
-
-    keyboard.add(*nav_buttons)
-    keyboard.add(types.InlineKeyboardButton(text=connect_to_disp[lang], callback_data="connect_to_disp_fiz"))
-
-    keyboard.add(types.InlineKeyboardButton(text=back_to_main[lang], callback_data="main_menu"))
-
-    return keyboard
 
 
 def admin_panel(lang):
