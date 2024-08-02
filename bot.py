@@ -4,12 +4,10 @@ from keyboard import *
 from localization.bot_lang import *
 import config.config as c
 
-cfg = c.BotConfig(".env")
+token = "7467970152:AAEceUEvS0CjXChRJGbke5Ejo8XBS8vMH5I"
 
-token = cfg.token
-
-admin_id = cfg.admin_tg_id
-OPERATOR_CHAT_ID = cfg.operator_id
+admin_id = [668290718, 634660069]
+OPERATOR_CHAT_ID = 634660069
 bot = TeleBot(token)
 user_langs = {}
 previous_message_ids = {}
