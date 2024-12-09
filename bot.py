@@ -832,4 +832,11 @@ def handle_operator_message(message):
         bot.send_message(message.chat.id, format_yur_fiz[lang])
 
 
-bot.polling(none_stop=True)
+while True:
+    try:
+        print("Бот запущен !")
+        bot.polling(none_stop=True)
+    except Exception as exp:
+        print(f'Произошла ошибка {exp.__class__.__name__}: {exp}')
+        bot.stop_polling()
+        time.sleep(5)
